@@ -1,6 +1,32 @@
 class Game {
   constructor(){}
   
+  play(){
+    form.hide();
+    textSize(20);
+    text("Game Start", 200,150);
+    Player.getPlayerInfo();
+    if(allPlayers !== undefined){
+      var displayPosition = 150;
+      for(var p in allPlayers){
+        if(p === "player" + player.index){
+          fill("red");
+        }
+        else{
+          fill("black");
+        }
+      
+        displayPosition += 20;
+        text(allPlayers[p].name + " : " + allPlayers[p].distance,100,displayPosition);
+      }
+    }
+
+    if(keyDown (UP_ARROW) && player.index !== null){
+      player.distance += 30;
+      player.update();
+    }
+  }
+
   getState(){
     var gameStateRef  = database.ref('gameState');
     gameStateRef.on("value",function(data){
